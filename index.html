@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Configuración Básica de Redes de Cómputo</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <header class="hero">
+        <div class="hero-badge"><i class="fa-solid fa-network-wired"></i> Fundamentos de Redes</div>
+        <h1>Configuración Básica de una <span class="highlight">Red de Cómputo</span></h1>
+        <p>Aprende sobre IPv4, direccionamiento, clases de red y los componentes clave para estructurar redes pequeñas de forma eficiente.</p>
+    </header>
+
+    <main class="container">
+        
+        <!-- Tarjetas explicativas de subtemas -->
+        <section class="cards-grid">
+            
+            <!-- Tarjeta 1 -->
+            <article class="card">
+                <div class="card-icon"><i class="fa-solid fa-globe"></i></div>
+                <div class="card-tag">Subtema 01</div>
+                <h3>IPv4 y Protocolo IP</h3>
+                <p>El estándar de direccionamiento fundamental que permite la identificación lógica de dispositivos en redes de datos.</p>
+                <div class="card-features">
+                    <span><i class="fa-solid fa-check"></i> Formato de 32 bits</span>
+                    <span><i class="fa-solid fa-check"></i> Notación Decimal Punteada</span>
+                </div>
+                <button class="btn-more" onclick="openModal('modal-ipv4')">
+                    Explorar Tema <i class="fa-solid fa-arrow-right"></i>
+                </button>
+            </article>
+
+            <!-- Tarjeta 2 -->
+            <article class="card">
+                <div class="card-icon"><i class="fa-solid fa-sitemap"></i></div>
+                <div class="card-tag">Subtema 02</div>
+                <h3>Clases de Red (Classful)</h3>
+                <p>Clasificación tradicional de direcciones IPv4 en rangos A, B, C, D y E para determinar la escala de la red.</p>
+                <div class="card-features">
+                    <span><i class="fa-solid fa-check"></i> Clases A, B y C (Host/Red)</span>
+                    <span><i class="fa-solid fa-check"></i> Multicast y Experimental</span>
+                </div>
+                <button class="btn-more" onclick="openModal('modal-clases')">
+                    Explorar Tema <i class="fa-solid fa-arrow-right"></i>
+                </button>
+            </article>
+
+            <!-- Tarjeta 3 -->
+            <article class="card">
+                <div class="card-icon"><i class="fa-solid fa-sliders"></i></div>
+                <div class="card-tag">Subtema 03</div>
+                <h3>Direccionamiento IP</h3>
+                <p>Mecanismos para asignar IPs estáticas o dinámicas, el rol de la Máscara de Subred y direcciones Públicas vs Privadas.</p>
+                <div class="card-features">
+                    <span><i class="fa-solid fa-check"></i> Asignación DHCP vs Estática</span>
+                    <span><i class="fa-solid fa-check"></i> Máscaras de Subred</span>
+                </div>
+                <button class="btn-more" onclick="openModal('modal-direccionamiento')">
+                    Explorar Tema <i class="fa-solid fa-arrow-right"></i>
+                </button>
+            </article>
+
+            <!-- Tarjeta 4 -->
+            <article class="card">
+                <div class="card-icon"><i class="fa-solid fa-server"></i></div>
+                <div class="card-tag">Subtema 04</div>
+                <h3>Elementos de Red Pequeña</h3>
+                <p>Los componentes físicos y lógicos fundamentales necesarios para armar y configurar una LAN pequeña.</p>
+                <div class="card-features">
+                    <span><i class="fa-solid fa-check"></i> Routers, Switches y Gateway</span>
+                    <span><i class="fa-solid fa-check"></i> Cableado UTP y Servidor DNS</span>
+                </div>
+                <button class="btn-more" onclick="openModal('modal-elementos')">
+                    Explorar Tema <i class="fa-solid fa-arrow-right"></i>
+                </button>
+            </article>
+
+        </section>
+
+        <!-- Calculadora Interactiva de IPv4 -->
+        <section class="interactive-section">
+            <div class="interactive-header">
+                <h2><i class="fa-solid fa-calculator"></i> Analizador de IPv4 interactivo</h2>
+                <p>Ingresa una dirección IP para determinar automáticamente su clase, máscara predeterminada y ámbito de red.</p>
+            </div>
+            <div class="calculator-box">
+                <div class="input-group">
+                    <input type="text" id="ipInput" placeholder="Ejemplo: 192.168.1.15" value="192.168.1.1">
+                    <button id="btnCalc" onclick="analyzeIP()">Analizar IP</button>
+                </div>
+                <div id="ipResult" class="result-box hidden">
+                    <!-- Los resultados se generan dinámicamente con JS -->
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- VENTANAS MODALES -->
+
+    <!-- Modal 1: IPv4 -->
+    <div class="modal" id="modal-ipv4">
+        <div class="modal-content">
+            <button class="close-btn" onclick="closeModal('modal-ipv4')">&times;</button>
+            <h2><i class="fa-solid fa-globe"></i> Protocolo IPv4</h2>
+            <hr>
+            <p>Una dirección **IPv4** es un número de 32 bits codificado en formato de 4 octetos separados por puntos (ejemplo: <code>192.168.1.1</code>).</p>
+            
+            <h4>Estructura de una Dirección IP</h4>
+            <p>Cada dirección IPv4 se divide en dos partes esenciales:</p>
+            <ul>
+                <li><strong>ID de Red (Network ID):</strong> Identifica el segmento de red en el que se encuentra el dispositivo.</li>
+                <li><strong>ID de Host (Host ID):</strong> Identifica de forma única el dispositivo específico (computadora, impresora, router) dentro de esa red.</li>
+            </ul>
+
+            <div class="code-block">
+                <code>Ejemplo: 192.168.1.50<br>
+[ Red: 192.168.1.0 ]  ---  [ Host: .50 ]</code>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal 2: Clases de Red -->
+    <div class="modal" id="modal-clases">
+        <div class="modal-content">
+            <button class="close-btn" onclick="closeModal('modal-clases')">&times;</button>
+            <h2><i class="fa-solid fa-sitemap"></i> Clases de Red (Classful)</h2>
+            <hr>
+            <p>El direccionamiento clásico o con clase divide el espacio IPv4 en 5 rangos:</p>
+
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Clase</th>
+                        <th>Rango de Octeto Inicial</th>
+                        <th>Máscara por Defecto</th>
+                        <th>Uso Principal</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Clase A</strong></td>
+                        <td>1 – 126</td>
+                        <td>255.0.0.0 (/8)</td>
+                        <td>Redes gigantescas (ISPs, gobiernos)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Clase B</strong></td>
+                        <td>128 – 191</td>
+                        <td>255.255.0.0 (/16)</td>
+                        <td>Empresas medianas / Grandes universidades</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Clase C</strong></td>
+                        <td>192 – 223</td>
+                        <td>255.255.255.0 (/24)</td>
+                        <td>Redes pequeñas, hogares y PYMEs</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Clase D</strong></td>
+                        <td>224 – 239</td>
+                        <td>No aplica</td>
+                        <td>Tráfico Multicast (transmisión masiva)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Clase E</strong></td>
+                        <td>240 – 254</td>
+                        <td>No aplica</td>
+                        <td>Uso experimental y de investigación</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Modal 3: Direccionamiento IP -->
+    <div class="modal" id="modal-direccionamiento">
+        <div class="modal-content">
+            <button class="close-btn" onclick="closeModal('modal-direccionamiento')">&times;</button>
+            <h2><i class="fa-solid fa-sliders"></i> Direccionamiento IP y Máscaras</h2>
+            <hr>
+            <h4>IPs Públicas vs. Privadas</h4>
+            <p>Las <strong>IPs Privadas</strong> no son enrutables en Internet y se usan internamente en hogares y empresas (Rangos: <code>10.0.0.0/8</code>, <code>172.16.0.0/12</code>, <code>192.168.0.0/16</code>). Las <strong>IPs Públicas</strong> son asignadas por los proveedores de Internet (ISP) para navegar mundialmente.</p>
+
+            <h4>Métodos de Asignación</h4>
+            <ul>
+                <li><strong>Estática (Manual):</strong> Configurada fijamente. Se usa para servidores, impresoras y gateways.</li>
+                <li><strong>Dinámica (DHCP):</strong> Asignación automática mediante un servidor o router cuando un dispositivo se conecta a la red.</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Modal 4: Elementos de una Red Pequeña -->
+    <div class="modal" id="modal-elementos">
+        <div class="modal-content">
+            <button class="close-btn" onclick="closeModal('modal-elementos')">&times;</button>
+            <h2><i class="fa-solid fa-server"></i> Elementos de una Red Pequeña</h2>
+            <hr>
+            <p>Para construir una red de área local (LAN) pequeña, se requieren los siguientes componentes básicos:</p>
+            <ul>
+                <li><strong>Router (Enrutador):</strong> Conecta la red local con la red externa (Internet) y realiza funciones de Gateway y NAT.</li>
+                <li><strong>Switch (Conmutador):</strong> Conecta múltiples dispositivos por cable Ethernet dentro de la misma red local.</li>
+                <li><strong>Gateway (Puerta de Enlace):</strong> Dirección IP del router que permite a los hosts salir hacia redes externas.</li>
+                <li><strong>Servidor DNS:</strong> Convierte nombres de dominio (ej. <code>google.com</code>) a direcciones IP numéricas.</li>
+                <li><strong>Medios de Transmisión:</strong> Cables de red Ethernet (UTP Cat5e/Cat6) o tecnología inalámbrica (Wi-Fi).</li>
+            </ul>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 - Guía Visual e Interactiva de Redes de Cómputo</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
